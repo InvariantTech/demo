@@ -1,0 +1,7 @@
+networks:
+  HOST_WWW:
+    values:
+    - address: 192.168.10.0/24
+  HOST_DB:
+    values:
+    - address: 192.168.20.0/24

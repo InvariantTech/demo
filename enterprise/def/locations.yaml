@@ -1,0 +1,11 @@
+locations:
+  __EXTERNAL_BOUNDARY__:
+  -   hosts: vios-edge-i
+      interfaces: GigabitEthernet0/1
+  host-www:
+  -   hosts: host-www
+  host-db:
+  -   hosts: host-db
+  hosts:
+  -   name: host-www
+  -   name: host-db
