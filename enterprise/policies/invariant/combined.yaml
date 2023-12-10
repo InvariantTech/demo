@@ -8,10 +8,10 @@ connectivity:
         protocol: tcp udp
         source-address: HOST_WWW
 
-# boundary-ingress:
-#     allow-inbound:
-#     -   source-address: ALL
-#         source-exclude: BOGONS MALICIOUS_IPS IP_REPUTATION_DENY
+boundary-ingress:
+    allow-inbound:
+    -   source-address: ALL
+        source-exclude: BOGONS MALICIOUS_IPS IP_REPUTATION_DENY
 
 # boundary-egress:
 #     deny-outbound:
