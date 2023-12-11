@@ -1,0 +1,27 @@
+{
+	"borderInterfaces": [
+		{
+			"borderInterface": {
+				"hostname": "border1-",
+				"interface": "GigabitEthernet0/1"
+			}
+		},
+		{
+			"borderInterface": {
+				"hostname": "border-1",
+				"interface": "GigabitEthernet0/3"
+			}
+		}
+	],
+	"filter": {
+			"onlyRemoteAsns": [],
+			"onlyRemoteIps": []
+	},
+    "ispNodeInfo": [
+        {
+          "asn": 65432,
+          "name": "ATT",
+		  "role": "TRANSIT"
+        }
+    ]
+}
