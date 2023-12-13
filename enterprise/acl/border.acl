@@ -1,0 +1,15 @@
+! $Id:$
+! $Date:$
+! $Revision:$
+no access-list 1
+access-list 1 remark $Id:$
+access-list 1 remark Cisco edge firewall, this only blocks by source.
+access-list 1 remark allow-internal
+access-list 1 remark This allows internal IPs to reach anywhere.
+access-list 1 permit 10.0.0.0 0.255.255.255
+access-list 1 permit 172.16.0.0 0.15.255.255
+access-list 1 permit 192.168.0.0 0.0.255.255
+access-list 1 remark deny-all
+access-list 1 deny any
+
+exit

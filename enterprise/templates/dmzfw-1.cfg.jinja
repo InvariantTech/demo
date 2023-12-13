@@ -44,21 +44,7 @@ dns domain-lookup INSIDE
 dns server-group DefaultDNS
  name-server 195.1.1.161 
 
-
-clear configure access-list out-to-ins
-access-list out-to-ins remark $Id:$
-access-list out-to-ins remark $Date:$
-access-list out-to-ins remark $Revision:$
-access-list out-to-ins remark Inbound connections from the internet.
-
-
-access-list out-to-ins remark accept-all
-access-list out-to-ins extended permit ip any any
-
-
-access-list out-to-ins remark deny-all
-access-list out-to-ins extended deny ip any any
-
+{{dmz_asa}}
 
 pager lines 23
 logging enable

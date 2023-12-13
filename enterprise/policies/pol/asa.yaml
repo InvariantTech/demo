@@ -1,0 +1,17 @@
+filters:
+  - header:
+      comment: Inbound connections from the internet.
+      targets:
+        ciscoasa: out-to-ins 
+    terms:
+      - name: deny-all
+        action: deny
+  - header:
+      comment: Access from the DCs outbound.
+      targets:
+        ciscoasa: dc-to-ins_out 
+    terms:
+      - name: accept-all
+        action: accept
+      - name: deny-all
+        action: deny

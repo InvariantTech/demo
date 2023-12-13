@@ -1,0 +1,10 @@
+filters:
+  - header:
+      comment: Inbound connections from the internet.
+      targets:
+        ciscoasa: out-to-ins 
+    terms:
+      - name: accept-all
+        action: accept
+      - name: deny-all
+        action: deny

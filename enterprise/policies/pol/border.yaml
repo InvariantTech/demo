@@ -1,0 +1,12 @@
+filters:
+  - header:
+      comment: Cisco edge firewall, this only blocks by source.
+      targets:
+        cisco: 1 standard 
+    terms:
+      - name: allow-internal
+        comment: This allows internal IPs to reach anywhere.
+        address: RFC1918
+        action: accept
+      - name: deny-all
+        action: deny
