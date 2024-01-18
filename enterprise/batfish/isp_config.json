@@ -2,7 +2,7 @@
 	"borderInterfaces": [
 		{
 			"borderInterface": {
-				"hostname": "border1-",
+				"hostname": "border-1",
 				"interface": "GigabitEthernet0/1"
 			}
 		},

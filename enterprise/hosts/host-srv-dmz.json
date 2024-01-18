@@ -1,0 +1,10 @@
+{
+	"hostname": "host-srev-dmz",
+	"hostInterfaces": {
+		"eth0": {
+			"name": "eth0",
+			"prefix": "195.1.1.161/29",
+			"gateway": "195.1.1.166"
+		}
+	}
+}
