@@ -1,0 +1,16 @@
+{ 
+  "hostname" : "dc1-leaf1-server2",
+  "iptablesFile" : "iptables/dc1-leaf1-server2.iptables",
+  "hostInterfaces" : {
+    "eth0" : {
+      "name": "eth0",
+      "prefix" : "10.10.21.3/24",
+      "gateway" : "10.10.21.1"
+    },
+    "eth1" : {
+      "name": "eth1",
+      "prefix" : "10.10.22.3/24",
+      "gateway" : "10.10.22.1"
+    }
+  }
+}

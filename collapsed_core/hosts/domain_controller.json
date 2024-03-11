@@ -1,0 +1,15 @@
+{ 
+  "hostname" : "domain_controller",
+  "hostInterfaces" : {
+    "eth0" : {
+      "name": "eth0",
+      "prefix" : "172.20.144.70/27",
+      "gateway" : "172.20.144.65"
+    },
+    "eth1" : {
+      "name": "eth1",
+      "prefix" : "172.20.144.71/27",
+      "gateway" : "172.20.144.65"
+    }
+  }
+}
