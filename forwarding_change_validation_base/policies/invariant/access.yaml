@@ -1,0 +1,49 @@
+access-policy:
+-   name: example-name
+    owner: example-owner@example.com
+    comment: example comment
+    connect-to:
+    -   comment: Permit external HTTP, HTTPS access to WWW
+        source-exclude: RFC1918
+        source-interface: EXTERNAL
+        destination-address: WWW_PUBLIC
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP
+    -   comment: Permit PSQL access from WWW to DB
+        source-address: WWW_PUBLIC
+        destination-address: DB_PUBLIC
+        destination-port: PSQL
+        protocol: TCP
+    -   comment: Permit WWW access to GITHUB_API
+        source-address: WWW_PUBLIC
+        destination-address: EXTERNAL_GITHUB_API
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP
+-   name: invalid-rules
+    owner: example-owner@example.com
+    comment: These rules are intentionally invalid
+    connect-to:
+    -   comment: No destination information
+        source-exclude: RFC1918
+        source-interface: EXTERNAL
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP
+    -   comment: Missing 'protocol'
+        source-address: WWW_PUBLIC
+        destination-address: DB_PUBLIC
+        destination-port: PSQL
+    -   comment: Unknown networks and services
+        source-address: BAD_WWW_PUBLIC
+        destination-address: BAD_EXTERNAL_GITHUB_API
+        destination-port: BAD_SERVICE
+        protocol: TCP UDP
+    -   comment: Questionable location
+        enter-interface: BAD_LOCATION
+        destination-address: 10.0.0.1
+        destination-port: NTP
+        protocol: TCP
+    -   comment: Bogus IPs
+        source-address: 999.999.999.999/50
+        destination-address: 999.999.8.8 99.99
+        destination-port: NTP
+        protocol: TCP

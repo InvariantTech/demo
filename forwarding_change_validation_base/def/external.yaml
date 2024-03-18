@@ -1,0 +1,4 @@
+locations:
+    EXTERNAL:
+    -   devices: border1
+        interfaces: GigabitEthernet0/0
