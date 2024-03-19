@@ -1,5 +1,5 @@
 access-policy:
--   name: example-name
+-   name: valid-rules
     owner: example-owner@example.com
     comment: example comment
     connect-to:
