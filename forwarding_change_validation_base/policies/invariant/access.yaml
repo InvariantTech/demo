@@ -5,7 +5,7 @@ access-policy:
     connect-to:
     -   comment: Permit external HTTP, HTTPS access to WWW
         source-exclude: RFC1918
-        source-interface: EXTERNAL
+        enter-interface: EXTERNAL
         destination-address: WWW_PUBLIC
         destination-port: HTTP HTTPS
         protocol: TCP UDP
