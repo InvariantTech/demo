@@ -1,0 +1,50 @@
+networks:
+  RFC1918:
+    values:
+      - address: 10.0.0.0/8
+        comment: "non-public"
+      - address: 172.16.0.0/12
+        comment: "non-public"
+      - address: 192.168.0.0/16
+        comment: "non-public"
+  HOST_WWW:
+    values:
+    - address: 192.168.10.0/24
+  HOST_DB:
+    values:
+    - address: 192.168.20.0/24
+  BAD_IPS:
+    values:
+    - address: 194.246.112.0/24
+    - address: 194.28.72.0/24
+  VLAN10:
+    values:
+    - address: 1.1.1.1/
+  VLAN20:
+    values:
+    - address: 1.1.1.1/
+  VLAN30:
+    values:
+    - address: 1.1.1.1/
+  VLAN40:
+    values:
+    - address: 1.1.1.1/
+  VLAN50:
+    values:
+    - address: 172.16.50/24
+  NAT:
+    values:
+    - address: 195.1.1.0/25
+  DMZ:
+    values:
+    - address: 195.1.1.128/32
+    - address: 195.1.1.132/32
+    - address: 195.1.1.136/32
+    - address: 195.1.1.140/32
+    - address: 195.1.1.144/32
+    - address: 195.1.1.148/32
+    - address: 195.1.1.152/32
+    - address: 195.1.1.156/32
+    - address: 195.1.1.160/29
+    - address: 195.1.1.192/29
+    - address: 195.1.1.224/29

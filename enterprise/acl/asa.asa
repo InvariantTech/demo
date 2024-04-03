@@ -1,0 +1,26 @@
+clear configure access-list out-to-ins
+access-list out-to-ins remark $Id:$
+access-list out-to-ins remark $Date:$
+access-list out-to-ins remark $Revision:$
+access-list out-to-ins remark Inbound connections from the internet.
+
+
+access-list out-to-ins remark accept-all
+access-list out-to-ins extended permit ip any any
+
+
+access-list out-to-ins remark deny-all
+access-list out-to-ins extended deny ip any any
+clear configure access-list dc-to-ins_out
+access-list dc-to-ins_out remark $Id:$
+access-list dc-to-ins_out remark $Date:$
+access-list dc-to-ins_out remark $Revision:$
+access-list dc-to-ins_out remark Access from the DCs outbound.
+
+
+access-list dc-to-ins_out remark accept-all
+access-list dc-to-ins_out extended permit ip any any
+
+
+access-list dc-to-ins_out remark deny-all
+access-list dc-to-ins_out extended deny ip any any

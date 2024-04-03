@@ -1,0 +1,8 @@
+host_categories:
+    host-www:
+    -   hosts: host-www
+    host-db:
+    -   hosts: host-db
+    hosts:
+    -   name: host-www
+    -   name: host-db
