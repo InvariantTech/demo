@@ -1,1 +1,0 @@
-[{"29:44": {"source_file": "pol/border.yaml"}}, {"32:34": {"filter": 0, "type": "header"}}, {"35:39": {"filter": 0, "type": "term", "term": 0, "term_name": "allow-internal"}}, {"40:41": {"filter": 0, "type": "term", "term": 1, "term_name": "deny-all"}}]

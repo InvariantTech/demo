@@ -36,7 +36,7 @@ access-policy:
       - type: ingress-critical-flow
         comment: |
           [tick/4127]
-          Ensure SQL access to financial databases in the data center
+          Ensure MYSQL access to financial databases in the data center
           to finance vlan.
         source-address: VLAN20
         source-exclude: VLAN20_IF
