@@ -1,0 +1,26 @@
+access-policy:
+  - name: staff-vlan-policy
+    comment: Access that the staff vlan has.
+    egress-network:
+      source-address: VLAN30
+      source-exclude: VLAN30_IF
+    rules:
+      - type: egress-critical-flow
+        comment: VLAN30 hosts must have HTTP/S access to DATACENTER
+        destination-address: DATACENTER
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP
+      - type: egress-critical-flow
+        comment: Ensure DNS connectivity
+        destination-address: INTERNAL_DNS
+        destination-port: DNS
+        protocol: tcp udp
+      - type: egress-deny
+        comment: VLAN30 hosts must not be able to reach DATACENTER through SSH
+        destination-address: DATACENTER
+        destination-port: SSH
+        protocol: tcp
+      - type: egress-deny
+        comment: Never allow staff access to the sensitive VLAN10
+        destination-address: VLAN40
+        protocol: tcp udp

@@ -5,4 +5,3 @@ These network configs can serve as examples for working with Invariant. Some of 
 The 'enterprise' example is re-published with permission from Radovan Brezula. See [https://brezular.com/2017/09/07/enterprise-network-on-gns3-part-1-introduction/](https://brezular.com/2017/09/07/enterprise-network-on-gns3-part-1-introduction/) .
 
 [https://invariant.tech/](https://invariant.tech/)
-

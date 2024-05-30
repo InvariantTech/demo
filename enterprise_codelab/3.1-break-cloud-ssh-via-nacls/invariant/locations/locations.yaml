@@ -1,0 +1,35 @@
+locations:
+  EXTERNAL:
+  - devices: border-1
+    interfaces: GigabitEthernet0/1
+  - devices: border-1
+    interfaces: GigabitEthernet0/3
+  vlan_10:
+  - devices: dist-1
+    interfaces: Vlan10
+  - devices: dist-2
+    interfaces: Vlan10
+  vlan_20:
+  - devices: dist-1
+    interfaces: Vlan20
+  - devices: dist-2
+    interfaces: Vlan20
+  vlan_30:
+  - devices: dist-1
+    interfaces: Vlan30
+  - devices: dist-2
+    interfaces: Vlan30
+  vlan_40:
+  - devices: dist-1
+    interfaces: Vlan40
+  - devices: dist-2
+    interfaces: Vlan40
+  host-www:
+    - devices: host-www
+      interfaces: eth0
+      
+  host-db:
+  -   name: host-db
+  hosts:
+  -   name: host-www
+  -   name: host-db

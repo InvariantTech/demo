@@ -1,1 +1,46 @@
-../acl/dc1-leaf1-server1.ipt
+*filter
+# Speedway OUTPUT Policy
+# foo
+#
+# $Id:$
+# $Date:$
+# $Revision:$
+# inet
+:OUTPUT DROP
+-A OUTPUT -p tcp --dport 443 -s 10.0.0.0/8 -j ACCEPT
+-A OUTPUT -p tcp --dport 443 -s 172.16.0.0/12 -j ACCEPT
+-A OUTPUT -p tcp --dport 443 -s 192.168.0.0/16 -j ACCEPT
+-A OUTPUT -j OUTPUT
+-A OUTPUT -p icmp -s 10.0.0.0/8 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p icmp -s 10.0.0.0/8 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -p icmp -s 172.16.0.0/12 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p icmp -s 172.16.0.0/12 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -p icmp -s 192.168.0.0/16 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p icmp -s 192.168.0.0/16 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -j OUTPUT
+-A OUTPUT -p tcp --dport 53 -s 10.0.0.0/8 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -s 10.0.0.0/8 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -s 172.16.0.0/12 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -s 172.16.0.0/12 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -s 192.168.0.0/16 -d 8.8.4.4/32 -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -s 192.168.0.0/16 -d 8.8.8.8/32 -j ACCEPT
+-A OUTPUT -j OUTPUT
+-A OUTPUT -p tcp -j DROP
+-A OUTPUT -p udp -j DROP
+-A OUTPUT -j OUTPUT
+# Speedway INPUT Policy
+# foo
+#
+# $Id:$
+# $Date:$
+# $Revision:$
+# inet
+:INPUT DROP
+-A INPUT -p tcp --dport 443 -s 10.0.0.0/8 -j ACCEPT
+-A INPUT -p tcp --dport 443 -s 172.16.0.0/12 -j ACCEPT
+-A INPUT -p tcp --dport 443 -s 192.168.0.0/16 -j ACCEPT
+-A INPUT -j INPUT
+-A INPUT -p tcp -j DROP
+-A INPUT -p udp -j DROP
+-A INPUT -j INPUT
+COMMIT

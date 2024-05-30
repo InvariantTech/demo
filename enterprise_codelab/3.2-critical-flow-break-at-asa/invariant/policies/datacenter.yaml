@@ -1,0 +1,81 @@
+access-policy:
+  - name: datacenter-ingress-policy
+    comment: Access to the datacenter.
+    owner: sec-team@company.com
+    ingress-network: DATACENTER
+    rules:
+      - type: ingress-critical-flow
+        comment: Ensure HTTP/S access from VLANs
+        source-address: VLAN10 VLAN20 VLAN30
+        source-exclude: VLAN10_IF VLAN20_IF VLAN30_IF
+        destination-port: HTTP HTTPS
+        protocol: tcp udp
+      - type: ingress-deny
+        comment: VLAN30 must not be able to reach DATACENTER through SSH
+        source-address: VLAN30
+        destination-port: SSH
+        protocol: tcp
+      - type: ingress-deny
+        comment: VLAN40 must never be able to reach the datacenter.
+        source-address: VLAN40
+  - name: datacenter-egress-policy
+    comment: Access from the datacenter.
+    egress-network: DATACENTER
+    rules:
+      - type: egress-deny
+        comment: Do not allow the datacenter to access the VLANs over HTTP
+        destination-address: VLANS
+        destination-port: HTTP HTTPS
+        protocol: tcp udp
+
+  - name: finance-databases-ingress-policy
+    comment: Access policy for our finance servers.
+    owner: finance-eng@company.com
+    ingress-network: FIN_DB
+    rules:
+      - type: ingress-critical-flow
+        comment: |
+          [tick/4127]
+          Ensure MYSQL access to financial databases in the data center
+          to finance vlan.
+        source-address: VLAN20
+        source-exclude: VLAN20_IF
+        destination-port: MYSQL
+        protocol: tcp
+
+  - name: finance-databases-ingress-policy
+    comment: Access policy for our finance servers.
+    owner: finance-eng@company.com
+    egress-network: FIN_SRV
+    rules:
+      - type: egress-critical-flow
+        comment: |
+          [tick/9172]
+          Ensure access from the datacenter finance servers to our bank.
+        destination-address: BANK_OF_COMPANY
+        destination-port: FTP HTTPS
+        protocol: TCP UDP
+    # Deny access to vlans
+    # deny access to data center
+    # ensure access to web servers
+  # - name: dc-policy
+  #   comment: Access to the data center. Good as of May 3 3:08
+  #   connect-to:
+
+  #   ingress:
+  #     - network:
+  #         destination-address: DATACENTER
+  #       # policies here fail still due to selection of asa g0/2 as a starting interface
+  #       deny:
+  #         - comment: |
+  #             [tick/9311]
+  #             VLAN40 should never be able to access our web services.
+  #           source-address: VLAN40
+  #           destination-port: HTTP HTTPS
+  #           protocol: tcp udp
+  #         - comment: | 
+  #             [tick/7263]
+  #             We do not want to accept SSH from these networks.
+  #           source-address: VLAN20 VLAN30 VLAN40 DMZ
+  #           destination-port: SSH
+  #           protocol: tcp

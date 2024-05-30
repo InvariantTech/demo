@@ -1,0 +1,1064 @@
+{
+  "index": 12,
+  "ok": false,
+  "policy": {
+    "comment": "DMZ ingress access rules.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": [
+        "PUBLIC_WEB"
+      ],
+      "object": null
+    },
+    "name": "dmz-ingress",
+    "owner": "example-owner@example.com"
+  },
+  "rule": {
+    "comment": "Reject sketch ICMP codes",
+    "destination-address": null,
+    "destination-port": null,
+    "icmp-code": [
+      "4",
+      "6",
+      "15",
+      "17",
+      "30"
+    ],
+    "protocol": [
+      "ICMP"
+    ],
+    "source-address": [
+      "GOOGLE_DNS",
+      "CLOUDFLARE_DNS",
+      "BANK_OF_COMPANY"
+    ],
+    "type": "ingress-deny"
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "195.1.1.161/32"
+      ],
+      "destination_exclude": null,
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "ICMP"
+      ],
+      "source_address": [
+        "8.8.8.8/32",
+        "1.1.1.1/32",
+        "9.1.2.4/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny",
+  "direction": "INGRESS_DENY",
+  "start": "@enter(border-1[GigabitEthernet0/1]),@enter(border-1[GigabitEthernet0/3])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "195.1.1.161",
+    "dstPort": null,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": 0,
+    "icmpVar": 0,
+    "ingressInterface": "GigabitEthernet0/1",
+    "ingressNode": "border-1",
+    "ingressVrf": null,
+    "ipProtocol": "ICMP",
+    "packetLength": 512,
+    "srcIp": "8.8.8.8",
+    "srcPort": null,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 0,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "ACCEPTED",
+      "hops": [
+        {
+          "node": "border-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/1",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "195.1.1.130",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/0",
+                  "resolvedNextHopIp": "195.1.1.130",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "GigabitEthernet0/0",
+                "routes": [
+                  {
+                    "admin": 1,
+                    "metric": 0,
+                    "network": "195.1.1.128/25",
+                    "nextHop": {
+                      "interface": null,
+                      "ip": "195.1.1.130",
+                      "type": "ip"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "static"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "GigabitEthernet0/0",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dmzfw-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "out-to-ins",
+                "filterType": "POST_TRANSFORMATION_INGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "195.1.1.161",
+                  "dstPort": null,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": 0,
+                  "icmpVar": 0,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "border-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "ICMP",
+                  "packetLength": 512,
+                  "srcIp": "8.8.8.8",
+                  "srcPort": null,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 0,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "195.1.1.134",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "INSIDE",
+                  "resolvedNextHopIp": "195.1.1.134",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "INSIDE",
+                "routes": [
+                  {
+                    "admin": 1,
+                    "metric": 0,
+                    "network": "195.1.1.160/27",
+                    "nextHop": {
+                      "interface": "INSIDE",
+                      "ip": "195.1.1.134",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "static"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "~COMBINED_OUTGOING_ACL~INSIDE~",
+                "filterType": "PRE_TRANSFORMATION_EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "195.1.1.161",
+                  "dstPort": null,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": 0,
+                  "icmpVar": 0,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "border-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "ICMP",
+                  "packetLength": 512,
+                  "srcIp": "8.8.8.8",
+                  "srcPort": null,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 0,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "SETUP_SESSION",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": {
+                  "dstIp": "8.8.8.8",
+                  "dstPort": null,
+                  "ipProtocol": "ICMP",
+                  "srcIp": "195.1.1.161",
+                  "srcPort": null
+                },
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": {},
+                "sessionScope": {
+                  "incomingInterfaces": [
+                    "INSIDE"
+                  ]
+                },
+                "transformation": [],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "INSIDE",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dmzsw-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan10",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "Vlan10",
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "195.1.1.160/29",
+                    "nextHop": {
+                      "interface": "Vlan10",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "Vlan10",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "host-srv-dmz",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "eth0",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "ACCEPTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": "eth0",
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": null,
+  "within_resolved_as": null,
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "195.1.1.161/32",
+      "dstPorts": null,
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "ICMP"
+      ],
+      "packetLengths": null,
+      "srcIps": "8.8.8.8/32,1.1.1.1/32,9.1.2.4/32",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter(border-1[GigabitEthernet0/1]),@enter(border-1[GigabitEthernet0/3])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: border-1, interface: GigabitEthernet0/1] [8.8.8.8->195.1.1.161 ICMP (type=0, code=0)]"
+}
+{
+  "index": 13,
+  "ok": false,
+  "policy": {
+    "comment": "DMZ ingress access rules.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": [
+        "PUBLIC_WEB"
+      ],
+      "object": null
+    },
+    "name": "dmz-ingress",
+    "owner": "example-owner@example.com"
+  },
+  "rule": {
+    "comment": "Reject sketch ICMP codes",
+    "destination-address": null,
+    "destination-port": null,
+    "icmp-code": [
+      "4",
+      "6",
+      "15",
+      "17",
+      "30"
+    ],
+    "protocol": [
+      "ICMP"
+    ],
+    "source-address": [
+      "GOOGLE_DNS",
+      "CLOUDFLARE_DNS",
+      "BANK_OF_COMPANY"
+    ],
+    "type": "ingress-deny"
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "195.1.1.161/32"
+      ],
+      "destination_exclude": null,
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "ICMP"
+      ],
+      "source_address": [
+        "8.8.8.8/32",
+        "1.1.1.1/32",
+        "9.1.2.4/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny",
+  "direction": "INGRESS_DENY",
+  "start": "@enter(border-1[GigabitEthernet0/1]),@enter(border-1[GigabitEthernet0/3])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "195.1.1.161",
+    "dstPort": null,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": 0,
+    "icmpVar": 0,
+    "ingressInterface": "GigabitEthernet0/3",
+    "ingressNode": "border-1",
+    "ingressVrf": null,
+    "ipProtocol": "ICMP",
+    "packetLength": 512,
+    "srcIp": "8.8.8.8",
+    "srcPort": null,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 0,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "ACCEPTED",
+      "hops": [
+        {
+          "node": "border-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/3",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "195.1.1.130",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/0",
+                  "resolvedNextHopIp": "195.1.1.130",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "GigabitEthernet0/0",
+                "routes": [
+                  {
+                    "admin": 1,
+                    "metric": 0,
+                    "network": "195.1.1.128/25",
+                    "nextHop": {
+                      "interface": null,
+                      "ip": "195.1.1.130",
+                      "type": "ip"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "static"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "GigabitEthernet0/0",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dmzfw-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "out-to-ins",
+                "filterType": "POST_TRANSFORMATION_INGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "195.1.1.161",
+                  "dstPort": null,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": 0,
+                  "icmpVar": 0,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "border-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "ICMP",
+                  "packetLength": 512,
+                  "srcIp": "8.8.8.8",
+                  "srcPort": null,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 0,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "195.1.1.134",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "INSIDE",
+                  "resolvedNextHopIp": "195.1.1.134",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "INSIDE",
+                "routes": [
+                  {
+                    "admin": 1,
+                    "metric": 0,
+                    "network": "195.1.1.160/27",
+                    "nextHop": {
+                      "interface": "INSIDE",
+                      "ip": "195.1.1.134",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "static"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "~COMBINED_OUTGOING_ACL~INSIDE~",
+                "filterType": "PRE_TRANSFORMATION_EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "195.1.1.161",
+                  "dstPort": null,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": 0,
+                  "icmpVar": 0,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "border-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "ICMP",
+                  "packetLength": 512,
+                  "srcIp": "8.8.8.8",
+                  "srcPort": null,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 0,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "OUTSIDE",
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "SETUP_SESSION",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": {
+                  "dstIp": "8.8.8.8",
+                  "dstPort": null,
+                  "ipProtocol": "ICMP",
+                  "srcIp": "195.1.1.161",
+                  "srcPort": null
+                },
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": {},
+                "sessionScope": {
+                  "incomingInterfaces": [
+                    "INSIDE"
+                  ]
+                },
+                "transformation": [],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "INSIDE",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dmzsw-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan10",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "Vlan10",
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "195.1.1.160/29",
+                    "nextHop": {
+                      "interface": "Vlan10",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": "Vlan10",
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "host-srv-dmz",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "eth0",
+                "inputVrf": "default",
+                "interface": null,
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "ACCEPTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "interface": "eth0",
+                "matchCriteria": null,
+                "outputInterface": null,
+                "routes": null,
+                "sessionAction": null,
+                "sessionScope": null,
+                "transformation": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": null,
+  "within_resolved_as": null,
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "195.1.1.161/32",
+      "dstPorts": null,
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "ICMP"
+      ],
+      "packetLengths": null,
+      "srcIps": "8.8.8.8/32,1.1.1.1/32,9.1.2.4/32",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter(border-1[GigabitEthernet0/1]),@enter(border-1[GigabitEthernet0/3])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: border-1, interface: GigabitEthernet0/3] [8.8.8.8->195.1.1.161 ICMP (type=0, code=0)]"
+}

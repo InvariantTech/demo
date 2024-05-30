@@ -1,0 +1,5 @@
+probe_targets:
+  - comment: Custom probe - use both UDP and ICMP ECHO
+    target: CLOUDFLARE_DNS GOOGLE_DNS
+    type: icmp-echo udp
+    ignore-filters: False

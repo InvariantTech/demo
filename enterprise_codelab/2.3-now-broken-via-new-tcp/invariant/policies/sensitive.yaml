@@ -1,0 +1,18 @@
+access-policy:
+  - name: sensitive-vlan-policy
+    comment: Policy for the sensitive vlan.
+    ingress-network: 
+      destination-address: VLAN40
+      destination-exclude: VLAN40_IF
+    rules:
+      - type: ingress-deny-others
+        comment: Limit ingress to only SSH from alice's desktop
+        within:
+          - protocol: TCP
+            source-address: RFC1918
+        deny-all-except:
+          flows:
+            - comment: Internal SSH access
+              source-address: ALICE_DESKTOP
+              destination-port: SSH
+              protocol: TCP

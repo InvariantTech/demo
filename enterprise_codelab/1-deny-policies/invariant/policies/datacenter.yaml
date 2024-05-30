@@ -1,0 +1,23 @@
+access-policy:
+  - name: datacenter-ingress-policy
+    comment: Access to the datacenter.
+    owner: sec-team@company.com
+    ingress-network: DATACENTER
+    rules:
+      - type: ingress-deny
+        comment: VLAN30 must not be able to reach DATACENTER through SSH
+        source-address: VLAN30
+        destination-port: SSH
+        protocol: tcp
+      - type: ingress-deny
+        comment: VLAN40 must never be able to reach the datacenter.
+        source-address: VLAN40
+  - name: datacenter-egress-policy
+    comment: Access from the datacenter.
+    egress-network: DATACENTER
+    rules:
+      - type: egress-deny
+        comment: Do not allow the datacenter to access the VLANs over HTTP
+        destination-address: VLANS
+        destination-port: HTTP HTTPS
+        protocol: tcp udp

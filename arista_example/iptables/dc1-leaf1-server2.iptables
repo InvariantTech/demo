@@ -1,1 +1,24 @@
-../acl/dc1-leaf1-server2.ipt
+*filter
+# Speedway OUTPUT Policy
+# foo
+#
+# $Id:$
+# $Date:$
+# $Revision:$
+# inet
+:OUTPUT DROP
+-A OUTPUT -p tcp -j DROP
+-A OUTPUT -p udp -j DROP
+-A OUTPUT -j OUTPUT
+# Speedway INPUT Policy
+# foo
+#
+# $Id:$
+# $Date:$
+# $Revision:$
+# inet
+:INPUT DROP
+-A INPUT -p tcp -j DROP
+-A INPUT -p udp -j DROP
+-A INPUT -j INPUT
+COMMIT

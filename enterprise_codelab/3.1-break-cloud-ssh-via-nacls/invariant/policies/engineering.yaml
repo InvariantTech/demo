@@ -1,0 +1,21 @@
+  access-policy:
+  - name: engineering-vlan-policy
+    comment: Policy for the engineering vlan.
+    egress-network: 
+      source-address: VLAN10
+      source-exclude: VLAN10_IF
+    rules:
+      - type: egress-critical-flow
+        comment: Allows HTTPS access to datacenter
+        destination-address: DATACENTER
+        destination-port: HTTPS
+        protocol: tcp udp
+      - type: egress-critical-flow
+        comment: Allow SSH access to the private cloud network
+        destination-address: i-01602d9efaed4409a-PRIVATE i-04cd3db5124a05ee6-PRIVATE
+        destination-port: SSH
+        protocol: tcp
+      - type: egress-critical-flow
+        destination-address: DATACENTER
+        destination-port: SSH
+        protocol: tcp

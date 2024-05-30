@@ -1,0 +1,4400 @@
+{
+  "index": 47,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/0",
+    "ingressNode": "core-1",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.17",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.17",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.17",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/0",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.9",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.9",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.9",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/0",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-1, interface: GigabitEthernet0/0] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 48,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/1",
+    "ingressNode": "core-1",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.17",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.17",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.17",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.9",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.9",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.9",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-1, interface: GigabitEthernet0/1] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 49,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/2",
+    "ingressNode": "core-1",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.17",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.17",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.17",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/2",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.9",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.9",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.9",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/2",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-1, interface: GigabitEthernet0/2] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 50,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/3",
+    "ingressNode": "core-1",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/3",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.17",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.17",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.17",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/3",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.9",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.9",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.9",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "core-1",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-1, interface: GigabitEthernet0/3] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 51,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/0",
+    "ingressNode": "core-2",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.21",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.21",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.21",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/0",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/0",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.13",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.13",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.13",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/0",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-2, interface: GigabitEthernet0/0] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 52,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/1",
+    "ingressNode": "core-2",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.21",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.21",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.21",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.13",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.13",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.13",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/1",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-2, interface: GigabitEthernet0/1] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 53,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/2",
+    "ingressNode": "core-2",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.21",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.21",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.21",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/2",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.13",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.13",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.13",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/2",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-2, interface: GigabitEthernet0/2] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}
+{
+  "index": 54,
+  "ok": false,
+  "policy": {
+    "comment": "Policy for the sensitive vlan.",
+    "egress-network": null,
+    "enforce": null,
+    "ingress-network": {
+      "list": null,
+      "object": {
+        "destination-address": [
+          "VLAN40"
+        ],
+        "destination-exclude": [
+          "VLAN40_IF"
+        ]
+      }
+    },
+    "name": "sensitive-vlan-policy",
+    "owner": null
+  },
+  "rule": {
+    "comment": "Limit ingress to only SSH from alice's desktop",
+    "deny-all-except": {
+      "flows": [
+        {
+          "comment": "Internal SSH access",
+          "destination-port": [
+            "SSH"
+          ],
+          "protocol": [
+            "TCP"
+          ],
+          "source-address": [
+            "ALICE_DESKTOP"
+          ]
+        }
+      ]
+    },
+    "destination-address": null,
+    "destination-port": null,
+    "protocol": null,
+    "source-address": null,
+    "type": "ingress-deny-others",
+    "within": [
+      {
+        "protocol": [
+          "TCP"
+        ],
+        "source-address": [
+          "RFC1918"
+        ]
+      }
+    ]
+  },
+  "resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": [
+        22
+      ],
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "192.168.10.98/32"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "errors": [],
+  "rule_type": "ingress-deny-others",
+  "direction": "INGRESS_DENY_OTHERS",
+  "start": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+  "flow": {
+    "dscp": 0,
+    "dstIp": "192.168.40.20",
+    "dstPort": 8298,
+    "ecn": 0,
+    "fragmentOffset": 0,
+    "icmpCode": null,
+    "icmpVar": null,
+    "ingressInterface": "GigabitEthernet0/3",
+    "ingressNode": "core-2",
+    "ingressVrf": null,
+    "ipProtocol": "TCP",
+    "packetLength": 512,
+    "srcIp": "192.168.20.2",
+    "srcPort": 49152,
+    "tcpFlagsAck": 0,
+    "tcpFlagsCwr": 0,
+    "tcpFlagsEce": 0,
+    "tcpFlagsFin": 0,
+    "tcpFlagsPsh": 0,
+    "tcpFlagsRst": 0,
+    "tcpFlagsSyn": 1,
+    "tcpFlagsUrg": 0
+  },
+  "traces": [
+    {
+      "disposition": "DELIVERED_TO_SUBNET",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/3",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.21",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/1",
+                  "resolvedNextHopIp": "10.0.0.21",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/1",
+                      "ip": "10.0.0.21",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/1",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-1",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "PERMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet1",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DELIVERED_TO_SUBNET",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": "192.168.40.20",
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "disposition": "DENIED_OUT",
+      "hops": [
+        {
+          "node": "core-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "GigabitEthernet0/3",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": "10.0.0.13",
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "GigabitEthernet0/2",
+                  "resolvedNextHopIp": "10.0.0.13",
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 110,
+                    "metric": 2,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "GigabitEthernet0/2",
+                      "ip": "10.0.0.13",
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "ospf"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "TRANSMITTED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "GigabitEthernet0/2",
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        },
+        {
+          "node": "dist-2",
+          "steps": [
+            {
+              "action": "RECEIVED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": "default",
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "FORWARDED",
+              "detail": {
+                "arpIp": null,
+                "filter": null,
+                "filterType": null,
+                "flow": null,
+                "forwardingDetail": {
+                  "outputInterface": "Vlan40",
+                  "resolvedNextHopIp": null,
+                  "type": "ForwardedOutInterface"
+                },
+                "inputInterface": null,
+                "inputVrf": null,
+                "outputInterface": "Vlan40",
+                "resolvedNexthopIp": null,
+                "routes": [
+                  {
+                    "admin": 0,
+                    "metric": 0,
+                    "network": "192.168.40.0/24",
+                    "nextHop": {
+                      "interface": "Vlan40",
+                      "ip": null,
+                      "type": "interface"
+                    },
+                    "nextHopIp": null,
+                    "protocol": "connected"
+                  }
+                ],
+                "transformedFlow": null
+              }
+            },
+            {
+              "action": "DENIED",
+              "detail": {
+                "arpIp": null,
+                "filter": "vlan40-out",
+                "filterType": "EGRESS_FILTER",
+                "flow": {
+                  "dscp": 0,
+                  "dstIp": "192.168.40.20",
+                  "dstPort": 8298,
+                  "ecn": 0,
+                  "fragmentOffset": 0,
+                  "icmpCode": null,
+                  "icmpVar": null,
+                  "ingressInterface": "GigabitEthernet0/3",
+                  "ingressNode": "core-2",
+                  "ingressVrf": null,
+                  "ipProtocol": "TCP",
+                  "packetLength": 512,
+                  "srcIp": "192.168.20.2",
+                  "srcPort": 49152,
+                  "tcpFlagsAck": 0,
+                  "tcpFlagsCwr": 0,
+                  "tcpFlagsEce": 0,
+                  "tcpFlagsFin": 0,
+                  "tcpFlagsPsh": 0,
+                  "tcpFlagsRst": 0,
+                  "tcpFlagsSyn": 1,
+                  "tcpFlagsUrg": 0
+                },
+                "forwardingDetail": null,
+                "inputInterface": "Ethernet2",
+                "inputVrf": null,
+                "outputInterface": null,
+                "resolvedNexthopIp": null,
+                "routes": null,
+                "transformedFlow": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skipped": false,
+  "within": {
+    "destination-address": [
+      "VLAN40"
+    ],
+    "destination-exclude": [
+      "VLAN40_IF"
+    ],
+    "protocol": [
+      "TCP"
+    ],
+    "source-address": [
+      "RFC1918"
+    ]
+  },
+  "within_resolved_as": [
+    {
+      "destination_address": [
+        "192.168.40.0/24"
+      ],
+      "destination_exclude": [
+        "192.168.40.0/32",
+        "192.168.40.252/32",
+        "192.168.40.253/32",
+        "192.168.40.254/32"
+      ],
+      "destination_node": null,
+      "destination_port": null,
+      "enter_interface": null,
+      "protocol": [
+        "TCP"
+      ],
+      "source_address": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16"
+      ],
+      "source_exclude": null,
+      "source_interface": null,
+      "source_port": null
+    }
+  ],
+  "query": {
+    "headers": {
+      "applications": null,
+      "dscps": null,
+      "dstIps": "192.168.40.1/32,192.168.40.2/31,192.168.40.4/30,192.168.40.8/29,192.168.40.16/28,192.168.40.32/27,192.168.40.64/26,192.168.40.128/26,192.168.40.192/27,192.168.40.224/28,192.168.40.240/29,192.168.40.248/30,192.168.40.255/32",
+      "dstPorts": "0-21,23-65535",
+      "ecns": null,
+      "fragmentOffsets": null,
+      "icmpCodes": null,
+      "icmpTypes": null,
+      "ipProtocols": [
+        "TCP"
+      ],
+      "packetLengths": null,
+      "srcIps": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+      "srcPorts": null,
+      "tcpFlags": null
+    },
+    "pathConstraints": {
+      "endLocation": null,
+      "forbiddenLocations": null,
+      "startLocation": "@enter((asa)[INSIDE0]),@enter((asa)[INSIDE1]),@enter((asa)[OUTSIDE]),@enter((asa)[SERVER0]),@enter((asa)[SERVER1]),@enter((border-1)[GigabitEthernet0/2]),@enter((border-1)[Loopback0]),@enter((core-1)[GigabitEthernet0/0]),@enter((core-1)[GigabitEthernet0/1]),@enter((core-1)[GigabitEthernet0/2]),@enter((core-1)[GigabitEthernet0/3]),@enter((core-1)[Loopback0]),@enter((core-2)[GigabitEthernet0/0]),@enter((core-2)[GigabitEthernet0/1]),@enter((core-2)[GigabitEthernet0/2]),@enter((core-2)[GigabitEthernet0/3]),@enter((core-2)[Loopback0]),@enter((dc-1)[GigabitEthernet0/0]),@enter((dc-1)[GigabitEthernet0/1]),@enter((dc-1)[Loopback0]),@enter((dc-1)[Vlan50]),@enter((dist-1)[Ethernet1]),@enter((dist-1)[Ethernet2]),@enter((dist-1)[Ethernet3]),@enter((dist-1)[Ethernet6]),@enter((dist-1)[Loopback0]),@enter((dist-1)[Vlan10]),@enter((dist-1)[Vlan20]),@enter((dist-1)[Vlan30]),@enter((dist-1)[Vlan40]),@enter((dist-2)[Ethernet1]),@enter((dist-2)[Ethernet2]),@enter((dist-2)[Ethernet3]),@enter((dist-2)[Ethernet6]),@enter((dist-2)[Loopback0]),@enter((dist-2)[Vlan10]),@enter((dist-2)[Vlan20]),@enter((dist-2)[Vlan30]),@enter((dist-2)[Vlan40]),@enter((host-db)[eth0]),@enter((host-dc-server1)[eth0]),@enter((host-www)[eth0]),@enter((i-01602d9efaed4409a)[eni-01997085076a9b98a]),@enter((i-04cd3db5124a05ee6)[eni-05452497daf80ccb3]),@enter((subnet-0333a0749ea4ce3df)[to-instances]),@enter((subnet-06a692ed4ef84368d)[to-instances]),@enter((subnet-09b389def558a9c7d)[to-instances]),@enter((subnet-0cb5f4c094bee5214)[to-instances])",
+      "transitLocations": null
+    }
+  },
+  "enforce": true,
+  "flow_str": "enter=[device: core-2, interface: GigabitEthernet0/3] [192.168.20.2:49152->192.168.40.20:8298 TCP (SYN)]"
+}

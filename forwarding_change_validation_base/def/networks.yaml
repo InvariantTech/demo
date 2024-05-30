@@ -1,0 +1,7 @@
+networks:
+  WWW_PUBLIC:
+    values:
+    - address: 2.128.1.1
+  DB_PUBLIC:
+    values:
+    - address: 2.128.0.1

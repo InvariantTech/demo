@@ -1,0 +1,30 @@
+access-policy:
+  - name: sensitive-vlan-policy
+    comment: Policy for the sensitive vlan.
+    ingress-network: 
+      destination-address: VLAN40
+      destination-exclude: VLAN40_IF
+    rules:
+      - type: ingress-critical-flow
+        comment: |
+          [tick/2719] Allow SRE Alice remote access.
+          [Note] Flows are violations when they should not be.
+        source-address: ALICE_DESKTOP
+        destination-port: SSH
+        protocol: tcp
+      - type: ingress-deny
+        comment: Deny all UDP inbound to the lab.
+        source-address: RFC1918
+        source-exclude: VLAN40
+        protocol: udp
+      - type: ingress-deny-others
+        comment: Limit ingress to only SSH from alice's desktop
+        within:
+          - protocol: TCP
+            source-address: RFC1918
+        deny-all-except:
+          flows:
+            - comment: Internal SSH access
+              source-address: ALICE_DESKTOP
+              destination-port: SSH
+              protocol: TCP

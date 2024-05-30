@@ -1,0 +1,11 @@
+access-policy:
+  - name: financial-server-access
+    comment: Allow access to the financial servers.
+    ingress-network: FIN_SRV
+    rules:
+      - type: ingress-critical-flow
+        comment: VLAN20 (hosts) must have HTTP/S access to FIN_SRV
+        source-address: VLAN20
+        source-exclude: VLAN20_IF
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP

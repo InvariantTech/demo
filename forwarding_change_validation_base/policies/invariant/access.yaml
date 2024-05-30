@@ -19,6 +19,22 @@ access-policy:
         destination-address: EXTERNAL_GITHUB_API
         destination-port: HTTP HTTPS
         protocol: TCP UDP
+    ingress:
+    -   comment: WWW access
+        network: WWW_PUBLIC
+        deny: all
+        permit:
+        -   comment: HTTP HTTPS
+            destination-port: HTTP HTTPS
+            protocol: TCP UDP
+    -   comment: DB access
+        network: DB_PUBLIC
+        deny: all
+        permit:
+        -   comment: Permit PSQL access from WWW to DB
+            source-address: WWW_PUBLIC
+            destination-port: PSQL
+            protocol: TCP
 # -   name: invalid-rules
 #     owner: example-owner@example.com
 #     comment: These rules are intentionally invalid

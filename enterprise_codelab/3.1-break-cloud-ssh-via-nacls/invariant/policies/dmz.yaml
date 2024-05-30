@@ -1,0 +1,22 @@
+access-policy:
+-   name: dmz-ingress
+    comment: DMZ ingress access rules.
+    owner: example-owner@example.com
+    ingress-network: PUBLIC_WEB
+    rules:
+
+    # Critical Path Rules
+    -   type: ingress-critical-flow
+        comment: |
+          Ensure HTTP/HTTPS connectivity from external.
+          Using a few entries from our non-company IPs as a general test.
+        source-address: GOOGLE_DNS CLOUDFLARE_DNS BANK_OF_COMPANY
+        destination-port: HTTP HTTPS
+        protocol: TCP UDP
+
+    # Ingress Deny Rules
+    -   type: ingress-deny
+        comment: Deny SSH from outside the network
+        source-address: GOOGLE_DNS CLOUDFLARE_DNS BANK_OF_COMPANY
+        destination-port: SSH
+        protocol: TCP UDP
