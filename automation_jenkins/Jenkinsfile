@@ -1,0 +1,271 @@
+def invariant_snapshot = ''
+def currentOutputDir = 'invariant_network_data'
+def currentFailureOutputDir = 'invariant_rule_failure_data'
+def previousOutputDir = 'invariant_previous_output'
+def diffOutputDir = 'invariant_network_diff'
+
+pipeline {
+    agent {
+        // REQUIREMENT: Agent must have python3 and access to PyPI, Invariant API
+        label 'python-agent0'
+    }
+
+    environment {
+        INVARIANT_DOMAIN = 'https://prod.invariant.tech/'
+        INVARIANT_ORGANIZATION_NAME = 'YOUR_ORGANIZATION_NAME_HERE'
+        INVARIANT_REPORTS = '''
+            nodes
+            interfaces
+            routes
+            edges
+            ipsec_session_status
+            ipsec_edges
+            bgp_process_config
+            bgp_peer_config
+            bgp_session_compatibility
+            bgp_session_status
+            bgp_edges
+            bgp_ribs
+            ospf_process_config
+            ospf_interface_config
+            ospf_area_config
+            ospf_session_compatibility
+            isis_edges
+            eigrp_edges
+            loops
+            multipath
+            file_parse_status
+            ignored_lines
+            parse_warnings
+            errors
+            probes
+        '''.trim().split('\\s+').join(' ')
+        INVARIANT_RULE_FAILURE_REPORTS = '''
+            critical_flows_violations
+            critical_flows_violations_unenforced
+            critical_flows_logs
+            critical_flows_details
+            policy_violations
+            policy_violations_unenforced
+            policy_logs
+            policy_details
+        '''.trim().split('\\s+').join(' ')
+        NETWORK_SNAPSHOT_DIR = 'public/enterprise_quick/'
+        GOLDEN_BRANCH_NAME = 'golden_branch'
+        USE_BRANCH_AS_NETWORK = 'true'
+    }
+
+    options {
+        // Keep artifacts to allow comparison with last successful build
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '20'))
+        timestamps()
+    }
+
+    stages {
+        stage('Setup Environment') {
+            steps {
+                script {
+                    echo "Setting up Python virtual environment and installing invariant..."
+                    sh """
+                        #!/bin/bash
+                        set -e
+                        python3 -m venv .venv
+                        .venv/bin/pip install --upgrade pip setuptools wheel
+                        .venv/bin/pip install invariant-client
+                        echo "Invariant version installed:"
+                        .venv/bin/invariant --version
+                    """
+                }
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Evaluate Network Snapshot Using Invariant') {
+            steps {
+                withCredentials([string(credentialsId: 'invariant-api-token-id', variable: 'INVARIANT_API_TOKEN')]) {
+                    script {
+                        echo "Running Invariant check in directory: ${pwd()}"
+                        def testFailed = false
+
+                        // Determine whether to include the --network flag (enabled by default)
+                        def networkFlag = ''
+                        if (env.USE_BRANCH_AS_NETWORK != 'false') {
+                            networkFlag = "--network ${env.BRANCH_NAME}"
+                        }
+
+                        try {
+                            def output = sh(script: """
+                                #!/bin/bash
+                                set -e
+                                .venv/bin/invariant run --condensed --target ${env.NETWORK_SNAPSHOT_DIR} ${networkFlag}
+                            """, returnStdout: true).trim();
+
+                            echo output;
+
+                            def linesArray = output.split('\n');
+                            def firstLine = linesArray.length > 1 ? linesArray[0].trim() : "";
+                            def lastLine = linesArray.length > 0 ? linesArray[-1].trim() : "";
+
+                            // Validate outcome
+                            if (lastLine == "outcome: All rules passed") {
+                                echo "SUCCESS: Invariant check passed.";
+                            } else {
+                                echo "WARNING: Invariant check failed. Last line was: '${lastLine}'. Full output:\n${output}";
+                                testFailed = true;
+                            }
+
+                            // Parse snapshot UUID from the second line (index 1)
+                            def uuidMatch = (firstLine =~ /([0-9a-fA-F-]{36})/);
+                            if (uuidMatch) {
+                                invariant_snapshot = uuidMatch[0][1];
+                                echo "Parsed snapshot UUID: ${invariant_snapshot}";
+                            } else {
+                                error("FAILURE: Could not parse snapshot UUID from second line: '${firstLine}'. Full output:\n${output}");
+                            }
+
+                        } catch (Exception e) {
+                            error("FAILURE: Invariant 'run' command failed execution: ${e.message}");
+                        }
+
+                        // Collect data files regardless of test result
+                        echo "Generating current data files for snapshot: ${invariant_snapshot}";
+                        if (invariant_snapshot.isEmpty()) {
+                            error("FAILURE: Cannot generate data files, Invariant snapshot UUID is missing.");
+                        }
+                        sh "mkdir -p ${currentOutputDir}";
+                        env.INVARIANT_REPORTS.split(' ').each { type ->
+                            echo "Generating ${type}.json...";
+                            try {
+                                sh(script: """
+                                    #!/bin/bash
+                                    set -e
+                                    # withCredentials injects INVARIANT_API_TOKEN into env
+                                    .venv/bin/invariant show ${type} --snapshot ${invariant_snapshot} --json > "${currentOutputDir}/${type}.json"
+                                """);
+                            } catch (Exception e) {
+                                error("FAILURE: Failed to generate ${type}.json: ${e.message}");
+                            }
+                        };
+
+                        echo "Archiving network data files from ${currentOutputDir}...";
+                        archiveArtifacts artifacts: "${currentOutputDir}/*.json", fingerprint: true;
+
+                        if (testFailed) {
+                            sh "mkdir -p ${currentFailureOutputDir}";
+                            env.INVARIANT_RULE_FAILURE_REPORTS.split(' ').each { type ->
+                                echo "Generating ${type}.json...";
+                                try {
+                                    sh(script: """
+                                        #!/bin/bash
+                                        set -e
+                                        # withCredentials injects INVARIANT_API_TOKEN into env
+                                        .venv/bin/invariant show ${type} --snapshot ${invariant_snapshot} --json > "${currentFailureOutputDir}/${type}.json"
+                                    """);
+                                } catch (Exception e) {
+                                    error("FAILURE: Failed to generate ${type}.json: ${e.message}");
+                                }
+                            };
+                            echo "Archiving rule failure files from ${currentFailureOutputDir}...";
+                            archiveArtifacts artifacts: "${currentFailureOutputDir}/*.json", fingerprint: true;
+                        }
+
+                        echo "Attempting to retrieve and diff against artifacts from last successful build..."
+                        sh "mkdir -p ${previousOutputDir} ${diffOutputDir}"
+
+                        def targetProjectName = ''
+                        def targetSelector = null
+                        def baselineDescription = ''
+                        def lastSlashIndex = env.JOB_NAME.lastIndexOf('/')
+
+                        if (env.BRANCH_NAME == env.GOLDEN_BRANCH_NAME || lastSlashIndex <= 0) {
+                            // Running ON the main branch: Compare against its own last SUCCESSFUL build
+                            targetProjectName = env.JOB_NAME // Job name is like 'your-pipeline/main'
+                            targetSelector = lastSuccessful()
+                            baselineDescription = "last successful build of this branch (${env.GOLDEN_BRANCH_NAME})"
+                            echo "Current branch is the golden branch ('${env.GOLDEN_BRANCH_NAME}'). Comparing against its own last successful build."
+                        } else {
+                            // Running on a FEATURE branch: Compare against the LATEST COMPLETED build of the main branch
+                            def parentJobName = env.JOB_NAME.substring(0, lastSlashIndex)
+                            targetProjectName = "${parentJobName}/${env.GOLDEN_BRANCH_NAME}" // e.g., 'your-pipeline/main'
+                            targetSelector = lastCompleted()
+                            baselineDescription = "latest completed build of branch '${env.GOLDEN_BRANCH_NAME}'"
+                            echo "Current branch is '${env.BRANCH_NAME}'. Comparing against the latest completed build of '${env.GOLDEN_BRANCH_NAME}'."
+                        }
+
+                        echo "Attempting to copy artifacts from: Job='${targetProjectName}', Selector='${targetSelector.getClass().simpleName}'"
+
+                        try {
+                            copyArtifacts(
+                                projectName: targetProjectName,
+                                selector: targetSelector,
+                                filter: "${currentOutputDir}/*.json",
+                                target: previousOutputDir,
+                                fingerprintArtifacts: true,
+                                flatten: true,
+                            )
+                            echo "Successfully retrieved baseline artifacts from ${baselineDescription}."
+
+                            echo "Performing diff between current (${currentOutputDir}) and baseline (${previousOutputDir})..."
+                            // Use '|| true' to prevent 'sh' failure if diff finds differences (exit code 1)
+                            sh """
+                                diff -urN "${previousOutputDir}/" "${currentOutputDir}/" > "${diffOutputDir}/0_invariant_data.diff" || true
+                            """
+
+                            def diffContent = readFile(file: "${diffOutputDir}/0_invariant_data.diff").trim()
+                            if (diffContent) {
+                                echo "Differences found."
+                                echo "--- Diff Start ---"
+                                if (fileExists('/usr/local/bin/dyff')) {
+                                    sh """
+                                        /usr/local/bin/dyff between --color off -b \"${previousOutputDir}/\" \"${currentOutputDir}/\" | tee \"${diffOutputDir}/1_invariant_diff_summary.txt\" || true
+                                    """
+                                } else {
+                                    echo "dyff command not found. Falling back to diff -urN (truncated). See artifact for full diff."
+                                    echo diffContent.take(4000)
+                                }
+                                echo "--- Diff End ---"
+
+                                archiveArtifacts artifacts: "${diffOutputDir}/0_invariant_data.diff", fingerprint: true
+                                if (fileExists('/usr/local/bin/dyff')) {
+                                    archiveArtifacts artifacts: "${diffOutputDir}/1_invariant_diff_summary.txt", fingerprint: true
+                                }
+                            } else {
+                                echo "No differences found compared to the last successful build's data."
+                            }
+
+                        } catch (Exception e) {
+                            // Warn on failures in this area. Diffs are informational and not considered in the build pass/fail status.
+                            // This also allows the first successful build on the golden branch to pass cleanly.
+                            echo "WARN: Could not retrieve or diff against previous successful build artifacts. Skipping diff. Reason: ${e.message}"
+                        }
+
+                        // PASS/FAIL: Fail the build if the test failed
+                        if (testFailed) {
+                            error("FAILURE: Invariant check failed. Data files were collected, but the test did not pass.");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up workspace..."
+            cleanWs()
+        }
+        success {
+            echo "Pipeline finished successfully."
+        }
+        failure {
+            echo "Pipeline failed."
+            // Add notifications (e.g., email, Slack) if desired
+            // mail to: 'your-team@example.com', subject: "FAILED: ${env.JOB_NAME} - ${env.BUILD_NUMBER}", body: "Check console output: ${env.BUILD_URL}"
+        }
+    }
+}

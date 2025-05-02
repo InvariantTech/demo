@@ -1,0 +1,196 @@
+networks:
+  ANY:
+    values:
+      - address: 0.0.0.0/0
+  LOOPBACK:
+    values:
+      - address: 127.0.0.0/8
+  RFC1918:
+    values:
+      - address: 10.0.0.0/8
+        comment: "non-public"
+      - address: 172.16.0.0/12
+        comment: "non-public"
+      - address: 192.168.0.0/16
+        comment: "non-public"
+  VLANS:
+    values:
+      - name: VLAN10
+      - name: VLAN20
+      - name: VLAN30
+      - name: VLAN40
+  VLAN10:
+    values:
+    - address: 192.168.10.0/24
+  VLAN10_IF:
+    values:
+    - address: 192.168.10.0/32 # network address?
+    - address: 192.168.10.252/32 #SVI
+    - address: 192.168.10.253/32 #SVI
+    - address: 192.168.10.254/32 #Gateway 
+  ALICE_DESKTOP:
+    values:
+      - address: 192.168.10.98/32
+  VLAN20:
+    values:
+    - address: 192.168.20.0/24
+  VLAN20_IF:
+    values:
+    - address: 192.168.20.0/32 # network address?
+    - address: 192.168.20.252/32 #SVI
+    - address: 192.168.20.253/32 #SVI
+    - address: 192.168.20.254/32 #Gateway
+  VLAN30:
+    values:
+    - address: 192.168.30.0/24
+  VLAN30_IF:
+    values:
+    - address: 192.168.30.0/32 # network address?
+    - address: 192.168.30.252/32 #SVI
+    - address: 192.168.30.253/32 #SVI
+    - address: 192.168.30.254/32 #Gateway
+  VLAN40:
+    values:
+    - address: 192.168.40.0/24
+  VLAN40_IF:
+    values:
+    - address: 192.168.40.0/32 # network address?
+    - address: 192.168.40.252/32 #SVI
+    - address: 192.168.40.253/32 #SVI
+    - address: 192.168.40.254/32 #Gateway
+
+# Data center IPs
+  DATACENTER:
+    values:
+    - address: 172.16.50.0/24
+  DATACENTER_IF:
+    values:
+      - address: 172.16.50.0/32
+      - address: 172.16.50.254/32
+  DATACENTER_SERVER1:
+    values:
+    - address: 172.16.50.1/32
+  FIN_SRV:
+    values:
+    - address: 172.16.50.60/32
+    - address: 172.16.50.61/32
+  FIN_DB:
+    values:
+    - address: 172.16.50.65/32
+    - address: 172.16.50.67/32
+  INTERNAL_WEB:
+    values:
+    - address: 172.16.50.22/32
+    - address: 172.16.50.24/32
+  DB_PRIVATE:
+    values:
+    - address: 172.16.50.1/32
+  NTP_SERVER:
+    values:
+    - address: 172.16.50.22/32
+  INTERNAL_DNS:
+    values:
+    - address: 172.16.50.90/32
+  FOO:
+    values:
+      - address: 172.16.50.1/32
+# DMZ and NAT
+  DMZ_IF:
+    values:
+    - address: 195.1.1.128/30
+    - address: 195.1.1.132/30
+  NAT:
+    values:
+    - address: 195.1.1.0/25
+  DMZ:
+    values:
+    - address: 195.1.1.160/27
+    - address: 195.1.1.192/26
+  PUBLIC_WEB:
+    values:
+    - address: 195.1.1.161/32
+
+
+
+# Non-company IPs    
+  GOOGLE_DNS:
+    values:
+    - address: 8.8.8.8/32
+  BANK_OF_COMPANY:
+    values:
+      - address: 9.1.2.4/32
+  CLOUDFLARE_DNS:
+    values:
+      - address: 1.1.1.1/32
+
+
+# Cloud
+
+# East
+
+# Public
+  i-01602d9efaed4409a-PUBLIC:
+    values:
+      - address: 13.59.144.125/32
+# Subnets
+  us-east:
+    values:
+      - name: us-east-2b
+      - name: us-east-2c
+  us-east-2b:
+    values:
+      - address: 10.30.1.0/24
+      - address: 10.30.2.0/24
+  us-east-2c:
+    values:
+      - address: 10.20.1.0/24
+      - address: 10.20.2.0/24
+
+  
+# Private
+  # security group sg-0e37fc2ef01c89369
+  i-01602d9efaed4409a-PRIVATE:
+    values:
+      - address: 10.20.1.207/32
+  # security group sg-024243f6c203c78bf
+  i-04cd3db5124a05ee6-PRIVATE:
+    values:
+      - address: 10.30.1.166/32
+
+  
+# West
+
+
+# # Public
+#   i-02cae6eaa9edeed70-PUBLIC:
+#     values:
+#       - address: 54.191.42.182/32
+# # Subnets
+#   us-west:
+#     values:
+#       - name: us-west-2b
+#   us-west-2b:
+#     values:
+#       - address: 10.40.2.0/24
+#       - address: 10.40.1.0/24
+#       - address: 10.50.2.0/24
+#       - address: 10.50.1.0/24
+
+# # Private
+#   # security group sg-0fb3aaffe313c6e1e
+#   i-02cae6eaa9edeed70-PRIVATE:
+#     values:
+#       - address: 10.40.2.80/32
+#   # security group sg-0204c0ba31f0b9454
+#   i-0a5d64b8b58c6dd09-PRIVATE:
+#     values:
+#       - address: 10.50.2.251/32
+services:
+  DNS:
+  - port: 53
+    protocol: tcp
+  - port: 53
+    protocol: udp
+
+
+

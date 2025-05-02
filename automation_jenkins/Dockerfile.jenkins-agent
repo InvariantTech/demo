@@ -1,0 +1,24 @@
+FROM jenkins/inbound-agent:latest-jdk17
+
+USER root
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+# OPTIONAL Install dyff, a fancy diff tool
+# The Jenkinsfile will still work if you comment out this step
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        ARCH="amd64"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+        ARCH="arm64"; \
+    else \
+        echo "Unsupported architecture: $ARCH"; \
+        exit 1; \
+    fi && \
+    curl --location https://github.com/homeport/dyff/releases/download/v1.10.1/dyff_1.10.1_linux_${ARCH}.tar.gz | tar -xzf - -C /usr/local/bin dyff
+
+USER jenkins

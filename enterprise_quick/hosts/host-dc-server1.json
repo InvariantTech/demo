@@ -1,0 +1,10 @@
+{
+	"hostname": "host-dc-server1",
+	"hostInterfaces": {
+		"eth0": {
+			"name": "eth0",
+			"prefix": "172.16.50.1/32",
+			"gateway": "172.16.50.254"
+		}
+	}
+}

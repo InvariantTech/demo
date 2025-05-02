@@ -1,0 +1,30 @@
+
+volumes:
+  jenkins-data:
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    restart: unless-stopped
+    environment:
+      JAVA_OPTS: '-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true'
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - ../../../../../..:/workspaces:cached
+  jenkins-python-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins-agent
+    environment:
+      JAVA_OPTS: '-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true'
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: python-agent0
+      JENKINS_SECRET: YOUR_JENKINS_AGENT_SECRET_HERE
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent/
+    depends_on:
+      - jenkins
+    volumes:
+      - ../../../../../..:/workspaces:cached

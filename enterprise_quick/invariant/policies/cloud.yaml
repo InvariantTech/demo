@@ -1,0 +1,16 @@
+access-policy:
+  - name: cloud-access-policy
+    comment: The general access across cloud.
+    ingress-network:
+      destination-address: us-east
+    rules:
+      - type: ingress-critical-flow
+        comment: Allow SSH access to the private cloud network.
+        source-address: VLAN10
+        destination-port: SSH
+        protocol: tcp
+      - type: ingress-critical-flow
+        comment: Allow HTTP/S access to our private cloud network from client networks.
+        source-address: VLAN10 VLAN20 VLAN30
+        destination-port: HTTP HTTPS
+        protocol: tcp udp

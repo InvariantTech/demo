@@ -1,0 +1,11 @@
+{
+	"hostname": "host-www",
+	"iptablesFile" : "acl/host-www.ipt",
+	"hostInterfaces": {
+		"eth0": {
+			"name": "eth0",
+			"prefix": "172.16.50.30/24",
+			"gateway": "172.16.50.254"
+		}
+	}
+}
