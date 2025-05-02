@@ -16,7 +16,3 @@ access-policy:
               source-address: ALICE_DESKTOP
               destination-port: SSH
               protocol: TCP
-            - comment: new flow allowed
-              source-address: FOO
-              destination-port: BAR
-              protocl: TCP

@@ -24,3 +24,8 @@ access-policy:
         comment: Never allow staff access to the sensitive VLAN10
         destination-address: VLAN40
         protocol: tcp udp
+      - type: egress-deny
+        comment: Force a failed rule
+        destination-address: INTERNAL_DNS
+        destination-port: DNS
+        protocol: tcp udp
